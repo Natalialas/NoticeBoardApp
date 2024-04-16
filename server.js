@@ -23,6 +23,7 @@ app.use(session({ secret: 'xyz567', store: MongoStore.create(mongoose.connection
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, '/client/build')));
+app.use(express.static(path.join(__dirname, '/public')));
 
 // add routes
 app.use('/api', require('./routes/ads.routes'));
