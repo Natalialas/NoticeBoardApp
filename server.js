@@ -19,7 +19,7 @@ connectToDB();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(session({ secret: 'xyz567', store: MongoStore.create(mongoose.connection), resave: false, saveUninitialized: false }));
+app.use(session({ secret: process.env.sessionSecret, store: MongoStore.create(mongoose.connection), resave: false, saveUninitialized: false }));
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, '/client/build')));
