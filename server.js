@@ -16,7 +16,14 @@ const server = app.listen(process.env.PORT || 8000, () => {
 connectToDB();
 
 // add middleware
-app.use(cors());
+if (process.env.NODE_ENV !== "production") {
+  app.use(
+    cors({
+      origin: ["http://localhost:3000", "http://localhost:8000"],
+      credentials: true,
+    })
+  );
+}
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(session({ secret: process.env.sessionSecret, store: MongoStore.create(mongoose.connection), resave: false, saveUninitialized: false }));
@@ -27,7 +34,6 @@ app.use(express.static(path.join(__dirname, '/public')));
 
 // add routes
 app.use('/api', require('./routes/ads.routes'));
-app.use('/api', require('./routes/users.routes'));
 app.use('/auth', require('./routes/auth.routes'));
 
 app.get('*', (req, res) => {
