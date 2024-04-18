@@ -12,6 +12,7 @@ const server = app.listen(process.env.PORT || 8000, () => {
   console.log('Server is running...');
 });
 
+
 // connect to DB
 connectToDB();
 
